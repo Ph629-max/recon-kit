@@ -49,7 +49,7 @@ def main(argv=None):
         return 0
 
     if args.command == "subdomains":
-        records = subdomain.enumerate_domain(
+        result = subdomain.enumerate_domain(
             args.domain,
             wordlist=args.wordlist,
             passive=not args.no_passive,
@@ -57,10 +57,12 @@ def main(argv=None):
             timeout=args.timeout,
         )
         if args.json:
-            print(report.to_json(records))
+            print(report.to_json(result))
         else:
-            print("目标: {0}    发现子域: {1}".format(args.domain, len(records)))
-            print(report.render_subdomains(records))
+            for warning in result["warnings"]:
+                print("[!] " + warning)
+            print("目标: {0}    发现子域: {1}".format(result["target"], len(result["records"])))
+            print(report.render_subdomains(result["records"]))
         return 0
 
     if args.command == "fingerprint":

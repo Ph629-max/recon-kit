@@ -49,14 +49,29 @@ def clean_names(domain, names):
 
 
 def from_crtsh(domain, timeout=30):
-    """查询证书透明度日志（crt.sh）。"""
+    """查询证书透明度日志（crt.sh）。
+
+    返回 {"names": set, "error": str 或 None}。
+
+    刻意把"查询失败"和"确实没有记录"区分开：crt.sh 经常返回 502，
+    如果两种情况都返回空集合，使用者会把服务端故障误读成"该域名没有子域记录"。
+    """
     url = CRTSH_URL.format(domain=urllib.parse.quote(domain))
     status, _headers, body, _final, error = netutil.http_get(
         url, timeout=timeout, max_bytes=4 * 1024 * 1024
     )
-    if error or status != 200:
-        return set()
-    return clean_names(domain, parse_crtsh(body))
+
+    if error:
+        return {"names": set(), "error": "crt.sh 请求失败：{0}".format(error)}
+    if status != 200:
+        return {"names": set(), "error": "crt.sh 返回 HTTP {0}，结果不可用".format(status)}
+
+    try:
+        payload = json.loads(body or "[]")
+    except ValueError:
+        return {"names": set(), "error": "crt.sh 返回内容不是合法 JSON，结果不可用"}
+
+    return {"names": clean_names(domain, parse_crtsh(payload)), "error": None}
 
 
 def load_wordlist(path):
@@ -89,8 +104,13 @@ def brute(domain, words, threads=20, timeout=3):
 
 
 def enumerate_domain(domain, wordlist=None, passive=True, threads=20, timeout=3):
-    """综合枚举：被动日志 + 可选字典，返回按名称排序的记录列表。"""
+    """综合枚举。
+
+    返回 {"target": str, "records": [...], "warnings": [...]}。
+    warnings 用于暴露被动数据源的故障，避免把"查询失败"当成"没有子域"。
+    """
     domain = netutil.normalize_domain(domain)
+    warnings = []
     found = {}
 
     def bucket(name):
@@ -99,7 +119,10 @@ def enumerate_domain(domain, wordlist=None, passive=True, threads=20, timeout=3)
         return found[name]
 
     if passive:
-        for name in from_crtsh(domain):
+        passive_result = from_crtsh(domain, timeout=max(timeout, 20))
+        if passive_result["error"]:
+            warnings.append(passive_result["error"])
+        for name in passive_result["names"]:
             bucket(name)["sources"].add("crt.sh")
 
     if wordlist:
@@ -117,4 +140,9 @@ def enumerate_domain(domain, wordlist=None, passive=True, threads=20, timeout=3)
             "ips": record["ips"],
             "sources": sorted(record["sources"]),
         })
-    return sorted(records, key=lambda item: item["name"])
+
+    return {
+        "target": domain,
+        "records": sorted(records, key=lambda item: item["name"]),
+        "warnings": warnings,
+    }

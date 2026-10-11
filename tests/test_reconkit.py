@@ -119,3 +119,43 @@ def test_render_fingerprint_error_branch():
 
 def test_render_subdomains_empty():
     assert report.render_subdomains([]) == "未发现子域名"
+
+
+def test_enumerate_domain_shape_without_sources():
+    """不启用任何数据源时，应返回结构化结果而不是空列表。"""
+    result = subdomain.enumerate_domain("example.com", passive=False, wordlist=None)
+    assert result["target"] == "example.com"
+    assert result["records"] == []
+    assert result["warnings"] == []
+
+
+def test_enumerate_domain_reports_passive_failure():
+    """被动源故障必须体现在 warnings 里，不能被当成"没有子域"。"""
+    original = subdomain.from_crtsh
+    subdomain.from_crtsh = lambda domain, timeout=30: {
+        "names": set(),
+        "error": "crt.sh 返回 HTTP 502，结果不可用",
+    }
+    try:
+        result = subdomain.enumerate_domain("example.com", passive=True, timeout=1)
+        assert len(result["warnings"]) == 1
+        assert "502" in result["warnings"][0]
+        assert result["records"] == []
+    finally:
+        subdomain.from_crtsh = original
+
+
+def test_enumerate_domain_keeps_records_from_passive_source():
+    """被动源正常时应把命中的子域带出来。"""
+    original = subdomain.from_crtsh
+    subdomain.from_crtsh = lambda domain, timeout=30: {"names": {"a.example.com"}, "error": None}
+    original_resolve = netutil.resolve_host
+    netutil.resolve_host = lambda host, timeout=3: ["203.0.113.9"]
+    try:
+        result = subdomain.enumerate_domain("example.com", passive=True, timeout=1)
+        assert result["warnings"] == []
+        assert [item["name"] for item in result["records"]] == ["a.example.com"]
+        assert result["records"][0]["sources"] == ["crt.sh"]
+    finally:
+        subdomain.from_crtsh = original
+        netutil.resolve_host = original_resolve
