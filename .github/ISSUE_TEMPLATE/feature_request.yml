@@ -1,0 +1,29 @@
+name: 功能建议
+description: 提出一个新功能或改进
+title: "[Feature] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: 你想解决什么问题
+      description: 描述场景，而不是直接给方案
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 你建议怎么做
+    validations:
+      required: true
+  - type: checkboxes
+    id: principles
+    attributes:
+      label: 请确认符合项目设计原则
+      options:
+        - label: 不引入第三方运行时依赖（或可作为可选依赖优雅降级）
+          required: true
+        - label: 不把"查询失败"与"没有结果"混为一谈
+          required: true
+        - label: 不包含针对未授权目标的便利化功能
+          required: true

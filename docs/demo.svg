@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 595" width="980" height="595" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Courier New', monospace" font-size="13.5">
+  <rect x="0" y="0" width="980" height="595" rx="10" fill="#0d1117" stroke="#30363d" stroke-width="1.5"/>
+  <path d="M 0 38 L 980 38" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="24" cy="20" r="6" fill="#ff5f57"/>
+  <circle cx="44" cy="20" r="6" fill="#febc2e"/>
+  <circle cx="64" cy="20" r="6" fill="#28c840"/>
+  <text x="98" y="25" fill="#8b949e" font-size="12.5">recon-kit · 真实运行输出</text>
+  <text x="30" y="74" xml:space="preserve"><tspan fill="#7ee787" font-weight="700">$ </tspan><tspan fill="#e6edf3">python -m reconkit fingerprint https://example.com</tspan></text>
+  <text x="30" y="95.5" fill="#79c0ff" xml:space="preserve">URL      : https://example.com</text>
+  <text x="30" y="117" fill="#79c0ff" xml:space="preserve">状态码   : 200</text>
+  <text x="30" y="138.5" fill="#79c0ff" xml:space="preserve">Server   : cloudflare</text>
+  <text x="30" y="160" fill="#79c0ff" xml:space="preserve">页面标题 : Example Domain</text>
+  <text x="30" y="181.5" fill="#8b949e" xml:space="preserve">指纹     :</text>
+  <text x="30" y="203" fill="#6e7681" xml:space="preserve">tech        category  evidence</text>
+  <text x="30" y="224.5" fill="#6e7681" xml:space="preserve">----------  --------  --------------------------------</text>
+  <text x="30" y="246" fill="#a5d6ff" xml:space="preserve">Cloudflare  cdn-waf   header Server ~ cloudflare</text>
+  <text x="30" y="289" xml:space="preserve"><tspan fill="#7ee787" font-weight="700">$ </tspan><tspan fill="#e6edf3">python -m reconkit subdomains example.com --wordlist wordlists/common.txt</tspan></text>
+  <text x="30" y="310.5" fill="#79c0ff" xml:space="preserve">目标: example.com    发现子域: 1</text>
+  <text x="30" y="332" fill="#6e7681" xml:space="preserve">subdomain        ips                            source</text>
+  <text x="30" y="353.5" fill="#6e7681" xml:space="preserve">---------------  -----------------------------  ------</text>
+  <text x="30" y="375" fill="#a5d6ff" xml:space="preserve">www.example.com  104.20.23.154, 172.66.147.243  brute</text>
+  <text x="30" y="418" xml:space="preserve"><tspan fill="#7ee787" font-weight="700">$ </tspan><tspan fill="#e6edf3">python -m reconkit fingerprint http://scanme.nmap.org</tspan></text>
+  <text x="30" y="439.5" fill="#79c0ff" xml:space="preserve">URL      : http://scanme.nmap.org</text>
+  <text x="30" y="461" fill="#79c0ff" xml:space="preserve">Server   : Apache/2.4.7 (Ubuntu)</text>
+  <text x="30" y="482.5" fill="#79c0ff" xml:space="preserve">页面标题 : Go ahead and ScanMe!</text>
+  <text x="30" y="504" fill="#8b949e" xml:space="preserve">指纹     :</text>
+  <text x="30" y="525.5" fill="#6e7681" xml:space="preserve">tech          category    evidence</text>
+  <text x="30" y="547" fill="#a5d6ff" xml:space="preserve">Apache httpd  web-server  header Server ~ Apache/2.4.7</text>
+</svg>
