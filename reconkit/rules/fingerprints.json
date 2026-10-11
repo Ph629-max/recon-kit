@@ -1,0 +1,292 @@
+[
+  {
+    "name": "Nginx",
+    "category": "web-server",
+    "headers": {
+      "Server": "nginx(/[0-9.]+)?"
+    }
+  },
+  {
+    "name": "Apache httpd",
+    "category": "web-server",
+    "headers": {
+      "Server": "Apache(/[0-9.]+)?"
+    }
+  },
+  {
+    "name": "Microsoft IIS",
+    "category": "web-server",
+    "headers": {
+      "Server": "Microsoft-IIS/[0-9.]+"
+    }
+  },
+  {
+    "name": "OpenResty",
+    "category": "web-server",
+    "headers": {
+      "Server": "openresty(/[0-9.]+)?"
+    }
+  },
+  {
+    "name": "Tomcat",
+    "category": "app-server",
+    "body": [
+      "Apache Tomcat/[0-9.]+",
+      "<title>Apache Tomcat"
+    ]
+  },
+  {
+    "name": "Jetty",
+    "category": "app-server",
+    "headers": {
+      "Server": "Jetty\\([0-9.]+"
+    }
+  },
+  {
+    "name": "PHP",
+    "category": "language",
+    "headers": {
+      "x-powered-by": "PHP/[0-9.]+"
+    }
+  },
+  {
+    "name": "ASP.NET",
+    "category": "framework",
+    "headers": {
+      "x-powered-by": "ASP\\.NET",
+      "x-aspnet-version": "[0-9.]+"
+    }
+  },
+  {
+    "name": "Express",
+    "category": "framework",
+    "headers": {
+      "x-powered-by": "^Express$"
+    }
+  },
+  {
+    "name": "Spring Boot",
+    "category": "framework",
+    "headers": {
+      "x-application-context": ".+"
+    }
+  },
+  {
+    "name": "ThinkPHP",
+    "category": "framework",
+    "body": [
+      "ThinkPHP",
+      "thinkphp"
+    ],
+    "cookies": [
+      "think_lang|think_var"
+    ]
+  },
+  {
+    "name": "Laravel",
+    "category": "framework",
+    "cookies": [
+      "laravel_session|XSRF-TOKEN"
+    ]
+  },
+  {
+    "name": "Django",
+    "category": "framework",
+    "cookies": [
+      "csrftoken|django_language"
+    ],
+    "body": [
+      "csrfmiddlewaretoken"
+    ]
+  },
+  {
+    "name": "Flask",
+    "category": "framework",
+    "headers": {
+      "Server": "Werkzeug/[0-9.]+"
+    }
+  },
+  {
+    "name": "Rails",
+    "category": "framework",
+    "cookies": [
+      "_rails|_session_id"
+    ],
+    "headers": {
+      "x-runtime": "[0-9.]+"
+    }
+  },
+  {
+    "name": "Vue.js",
+    "category": "javascript",
+    "body": [
+      "vue(\\.min)?\\.js",
+      "data-v-[0-9a-f]{8}"
+    ]
+  },
+  {
+    "name": "React",
+    "category": "javascript",
+    "body": [
+      "react(-dom)?(\\.production\\.min)?\\.js",
+      "data-reactroot"
+    ]
+  },
+  {
+    "name": "Angular",
+    "category": "javascript",
+    "body": [
+      "ng-version=",
+      "angular(\\.min)?\\.js"
+    ]
+  },
+  {
+    "name": "jQuery",
+    "category": "javascript",
+    "body": [
+      "jquery(-[0-9.]+)?(\\.min)?\\.js"
+    ]
+  },
+  {
+    "name": "Element UI",
+    "category": "javascript",
+    "body": [
+      "element-ui",
+      "el-button--primary"
+    ]
+  },
+  {
+    "name": "Bootstrap",
+    "category": "css",
+    "body": [
+      "bootstrap(\\.min)?\\.css",
+      "bootstrap(\\.min)?\\.js"
+    ]
+  },
+  {
+    "name": "WordPress",
+    "category": "cms",
+    "body": [
+      "/wp-content/",
+      "/wp-includes/"
+    ],
+    "headers": {
+      "x-pingback": "/xmlrpc\\.php"
+    }
+  },
+  {
+    "name": "Drupal",
+    "category": "cms",
+    "headers": {
+      "x-generator": "Drupal [0-9.]+"
+    },
+    "body": [
+      "Drupal\\.settings"
+    ]
+  },
+  {
+    "name": "Joomla",
+    "category": "cms",
+    "body": [
+      "/components/com_content/",
+      "Joomla!"
+    ]
+  },
+  {
+    "name": "Nacos",
+    "category": "middleware",
+    "body": [
+      "nacos",
+      "console-ui"
+    ],
+    "title": [
+      "Nacos"
+    ]
+  },
+  {
+    "name": "Swagger UI",
+    "category": "api-doc",
+    "body": [
+      "swagger-ui"
+    ],
+    "title": [
+      "Swagger UI"
+    ]
+  },
+  {
+    "name": "Kibana",
+    "category": "middleware",
+    "headers": {
+      "kbn-name": ".+"
+    },
+    "title": [
+      "Kibana"
+    ]
+  },
+  {
+    "name": "Elasticsearch",
+    "category": "middleware",
+    "body": [
+      "You Know, for Search"
+    ]
+  },
+  {
+    "name": "Jenkins",
+    "category": "ci",
+    "headers": {
+      "x-jenkins": "[0-9.]+"
+    },
+    "body": [
+      "Jenkins-Crumb"
+    ]
+  },
+  {
+    "name": "GitLab",
+    "category": "ci",
+    "headers": {
+      "x-gitlab-": ".+"
+    },
+    "body": [
+      "gon\\.gitlab"
+    ]
+  },
+  {
+    "name": "Grafana",
+    "category": "middleware",
+    "body": [
+      "grafana-app"
+    ],
+    "title": [
+      "Grafana"
+    ]
+  },
+  {
+    "name": "Cloudflare",
+    "category": "cdn-waf",
+    "headers": {
+      "Server": "cloudflare",
+      "cf-ray": "[0-9a-f]+"
+    }
+  },
+  {
+    "name": "Tengine / 阿里云",
+    "category": "cdn-waf",
+    "headers": {
+      "Server": "Tengine|Aliyun"
+    }
+  },
+  {
+    "name": "网宿 wengine",
+    "category": "cdn-waf",
+    "headers": {
+      "Server": "wengine|Wangsu"
+    }
+  },
+  {
+    "name": "宝塔面板",
+    "category": "panel",
+    "body": [
+      "btwaf|BaoTa|宝塔"
+    ]
+  }
+]
