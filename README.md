@@ -2,6 +2,7 @@
 
 > 轻量级资产侦察工具：**子域名枚举** + **技术栈指纹识别**，只依赖 Python 标准库。
 
+[![CI](https://github.com/Ph629-max/recon-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/Ph629-max/recon-kit/actions/workflows/ci.yml)
 [![Python](https://img.shields.io/badge/python-3.8%2B-blue)](#)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![Dependencies](https://img.shields.io/badge/dependencies-none-brightgreen)](#)
@@ -36,6 +37,16 @@ cd recon-kit
 
 # 查看帮助
 python -m reconkit --help
+```
+
+### 安装为命令（可选）
+
+```bash
+pip install .
+
+# 安装后可直接使用 reconkit 命令
+reconkit --version
+reconkit fingerprint https://example.com
 ```
 
 ### 子域名枚举
@@ -141,6 +152,8 @@ pytest -q
 ```bash
 python tests/smoke_offline.py
 ```
+
+CI 会在 Python 3.8 ~ 3.13 六个版本上跑上面全部测试，并额外验证包可正常构建安装。
 
 测试覆盖：域名归一化、DNS/IP 判断、title 提取、crt.sh 响应解析（含畸形输入）、子域过滤、规则匹配（命中/未命中/举证）、表格与 JSON 渲染、默认规则文件完整性。**全部离线**，CI 可直接跑。
 

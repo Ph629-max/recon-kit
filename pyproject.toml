@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "recon-kit"
+version = "0.1.0"
+description = "Lightweight asset reconnaissance: subdomain enumeration and technology fingerprinting"
+readme = "README.md"
+requires-python = ">=3.8"
+authors = [{ name = "Ph629-max" }]
+keywords = ["security", "recon", "subdomain", "fingerprint"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Topic :: Security",
+]
+dependencies = []
+
+[project.scripts]
+reconkit = "reconkit.cli:main"
+
+[tool.setuptools]
+packages = ["reconkit"]
+
+[tool.setuptools.package-data]
+reconkit = ["rules/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
